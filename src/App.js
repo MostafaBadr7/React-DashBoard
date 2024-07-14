@@ -1,5 +1,5 @@
 import "./App.css";
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 import DashBoard from "./Components/DashBoard/DashBoard";
 import Layout from "../src/Components/Layout/Layout.jsx";
 import DataContextProvider from "./Contexts/DataContext";
@@ -9,7 +9,10 @@ function App() {
     {
       path: "",
       element: <Layout />,
-      children: [{ path: "Home", element: <DashBoard /> }],
+      children: [
+        { path: "Home", element: <DashBoard /> },
+        { path: "", element: <Navigate to="" /> },
+      ],
     },
   ]);
 

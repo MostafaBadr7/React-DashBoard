@@ -24,7 +24,39 @@ const PieChart = ({ data }) => {
     ],
   };
 
-  return <Pie data={chartData} />;
+  const options = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            const value = tooltipItem.raw;
+            return `LE ${value}`;
+          },
+        },
+      },
+      legend: {
+        labels: {
+          generateLabels: (chart) => {
+            const data = chart.data;
+            if (data.labels.length && data.datasets.length) {
+              return data.labels.map((label, i) => {
+                const value = data.datasets[0].data[i];
+                return {
+                  text: `${label}: LE ${value}`,
+                  fillStyle: data.datasets[0].backgroundColor[i],
+                  hidden: isNaN(data.datasets[0].data[i]) || chart.getDatasetMeta(0).data[i].hidden,
+                  index: i,
+                };
+              });
+            }
+            return [];
+          },
+        },
+      },
+    },
+  };
+
+  return <Pie data={chartData} options={options} />;
 };
 
 export default PieChart;
