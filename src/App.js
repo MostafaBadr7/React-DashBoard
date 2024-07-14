@@ -1,11 +1,11 @@
 import "./App.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import DashBoard from "./Components/DashBoard/DashBoard";
 import Layout from "../src/Components/Layout/Layout.jsx";
 import DataContextProvider from "./Contexts/DataContext";
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "",
       element: <Layout />,
