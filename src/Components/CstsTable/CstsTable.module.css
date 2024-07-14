@@ -1,0 +1,18 @@
+.tableHeader {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}
+
+.tableRow {
+  background-color: #f2f2f2;
+}
+
+.tableCell {
+  padding: 12px;
+  text-align: left;
+}
+
+.tableRow:hover {
+  background-color: #ddd;
+}

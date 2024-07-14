@@ -1,0 +1,14 @@
+.tableContainer {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.filterContainer {
+  margin-bottom: 20px;
+}
+
+.filterInput {
+  margin-right: 10px;
+}
+.customerSelect {
+  margin-bottom: 20px;
+}
