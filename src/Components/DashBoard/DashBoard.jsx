@@ -23,7 +23,7 @@ const CustomersTable = () => {
       let filtered = transactions;
       if (filterName) {
         filtered = filtered.filter(transaction => {
-          const customer = customers.find(cst => cst.id === transaction.customer_id);
+          const customer = customers.find(cst => cst.id == transaction.customer_id);
           return customer?.name.toLowerCase().includes(filterName.toLowerCase());
         });
       }
