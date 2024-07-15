@@ -1,49 +1,31 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext } from "react";
 import { useQuery } from "react-query";
 
 export const DataContext = createContext();
 
+const githubRawUrl =
+  "https://raw.githubusercontent.com/MostafaBadr7/React-DashBoard/main/db.json";
+
+const fetchData = async () => {
+  const response = await fetch(githubRawUrl);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
+
 export default function DataContextProvider(props) {
-  const fetchTransactions = async () => {
-    const response = await fetch("http://localhost:5000/transactions");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  };
+  const { data, isLoading, isError, error } = useQuery("data", fetchData);
 
-  const fetchCustomers = async () => {
-    const response = await fetch("http://localhost:5000/customers");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  };
-
-  const {
-    data: transactions,
-    isLoading: isLoadingTransactions,
-    isError: isErrorTransactions,
-    error: errorTransactions,
-  } = useQuery("trans", fetchTransactions);
-  const {
-    data: customers,
-    isLoading: isLoadingCustomers,
-    isError: isErrorCustomers,
-    error: errorCustomers,
-  } = useQuery("Csts", fetchCustomers);
-
-  if (isLoadingTransactions || isLoadingCustomers) {
+  if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  if (isErrorTransactions) {
-    return <p>Error: {errorTransactions.message}</p>;
+  if (isError) {
+    return <p>Error: {error.message}</p>;
   }
 
-  if (isErrorCustomers) {
-    return <p>Error: {errorCustomers.message}</p>;
-  }
+  const { transactions, customers } = data;
 
   return (
     <DataContext.Provider value={{ transactions, customers }}>
